@@ -1,0 +1,747 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --maroon: #3a0712;
+    --dark-maroon: #180309;
+    --gold: #d7ad55;
+    --light-gold: #f1d58b;
+    --cream: #f7eedc;
+    --white: #fffaf0;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background: var(--dark-maroon);
+    font-family: "Amiri", serif;
+}
+
+
+/* =================================
+   INTRO
+================================= */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #641426 0%,
+            #3a0712 45%,
+            #170208 100%
+        );
+
+    transition:
+        opacity 1.5s ease,
+        visibility 1.5s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+.roman-frame {
+    position: absolute;
+    inset: 25px;
+
+    border: 1px solid rgba(215, 173, 85, 0.65);
+
+    box-shadow:
+        inset 0 0 0 8px rgba(215, 173, 85, 0.05),
+        inset 0 0 80px rgba(0, 0, 0, 0.4);
+
+    pointer-events: none;
+}
+
+
+.roman-frame::before,
+.roman-frame::after {
+    content: "❦";
+
+    position: absolute;
+
+    color: var(--gold);
+    font-size: 45px;
+}
+
+.roman-frame::before {
+    top: 15px;
+    left: 25px;
+}
+
+.roman-frame::after {
+    bottom: 15px;
+    right: 25px;
+}
+
+
+.intro-content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.small-title {
+    color: var(--light-gold);
+    font-size: 18px;
+    margin-bottom: 50px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =================================
+   ENVELOPE
+================================= */
+
+.envelope {
+    position: relative;
+
+    width: 310px;
+    height: 205px;
+
+    cursor: pointer;
+
+    perspective: 1000px;
+
+    filter:
+        drop-shadow(0 25px 30px rgba(0,0,0,.55));
+
+    animation: floating 3s ease-in-out infinite;
+}
+
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eee1c8,
+            #fff9eb,
+            #d9c9aa
+        );
+
+    border: 2px solid var(--gold);
+
+    border-radius: 3px;
+}
+
+
+.envelope-paper {
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 15px;
+
+    height: 170px;
+
+    background: #fffaf0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+
+    color: #6d1b2b;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 28px;
+
+    z-index: 1;
+
+    transition: transform 1s ease;
+}
+
+
+.envelope-paper span:nth-child(2) {
+    color: var(--gold);
+}
+
+
+.envelope-flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 155px solid transparent;
+    border-right: 155px solid transparent;
+    border-top: 105px solid #eee1c8;
+
+    transform-origin: top center;
+
+    z-index: 4;
+
+    transition: transform 1s cubic-bezier(.4,0,.2,1);
+
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,.2));
+}
+
+
+.wax-seal {
+    position: absolute;
+
+    z-index: 6;
+
+    left: 50%;
+    top: 51%;
+
+    transform: translate(-50%, -50%);
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #d85861,
+            #851d2b 60%,
+            #450914
+        );
+
+    border: 2px solid #d6a852;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.4);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+
+    color: #f5d889;
+
+    font-family: "Cormorant Garamond", serif;
+    font-weight: bold;
+}
+
+
+.wax-seal span:nth-child(2) {
+    font-size: 13px;
+}
+
+
+.open-text {
+    margin-top: 40px;
+
+    color: var(--cream);
+
+    font-size: 18px;
+
+    animation: pulse 2s infinite;
+}
+
+
+/* Envelope open */
+
+.envelope.open {
+    animation: none;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .envelope-paper {
+    transform: translateY(-65px);
+}
+
+
+/* =================================
+   MAIN
+================================= */
+
+.invitation {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(27, 5, 10, .35),
+            rgba(27, 5, 10, .72)
+        ),
+        url("images/roman-palace.jpg")
+        center / cover no-repeat;
+
+    opacity: 0;
+
+    transition: opacity 2s ease;
+}
+
+.invitation.show {
+    opacity: 1;
+}
+
+
+.palace-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 221, 151, .08),
+            transparent 40%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(20,3,8,.1),
+            rgba(20,3,8,.8)
+        );
+}
+
+
+.content {
+    position: relative;
+    z-index: 5;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+
+/* =================================
+   TYPOGRAPHY
+================================= */
+
+.welcome {
+    color: var(--light-gold);
+
+    font-size: clamp(22px, 4vw, 32px);
+
+    margin-bottom: 5px;
+}
+
+
+.invite {
+    color: var(--cream);
+
+    font-size: clamp(16px, 3vw, 22px);
+
+    opacity: .9;
+
+    margin-bottom: 25px;
+}
+
+
+.names {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    color: var(--white);
+}
+
+
+.name {
+    font-family: "Amiri", serif;
+
+    font-size: clamp(45px, 8vw, 85px);
+
+    color: var(--white);
+
+    text-shadow:
+        0 2px 15px rgba(0,0,0,.8),
+        0 0 20px rgba(215,173,85,.2);
+}
+
+
+.heart {
+    color: var(--gold);
+
+    font-size: 45px;
+
+    animation: heartbeat 2s infinite;
+}
+
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 15px 0;
+}
+
+
+.divider span {
+    width: 90px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            var(--gold)
+        );
+}
+
+
+.divider span:last-child {
+    background:
+        linear-gradient(
+            to left,
+            transparent,
+            var(--gold)
+        );
+}
+
+
+.divider i {
+    color: var(--gold);
+
+    font-style: normal;
+}
+
+
+/* =================================
+   DATE
+================================= */
+
+.date {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    color: var(--cream);
+}
+
+
+.date-day {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 48px;
+
+    color: var(--light-gold);
+}
+
+
+.date-middle {
+    display: flex;
+
+    flex-direction: column;
+
+    font-size: 24px;
+}
+
+
+.date-middle small {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 24px;
+
+    color: var(--gold);
+}
+
+
+.date-text {
+    margin-top: 5px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 17px;
+
+    color: #ddd0b8;
+
+    direction: ltr;
+}
+
+
+/* =================================
+   MESSAGE
+================================= */
+
+.message {
+    margin-top: 35px;
+
+    color: var(--white);
+}
+
+
+.message p {
+    font-size: clamp(22px, 4vw, 30px);
+
+    color: var(--light-gold);
+
+    margin-bottom: 5px;
+}
+
+
+.message span {
+    font-size: 17px;
+
+    color: var(--cream);
+}
+
+
+.top-ornament,
+.bottom-ornament {
+    color: var(--gold);
+
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+
+.bottom-ornament {
+    margin-top: 25px;
+
+    letter-spacing: 12px;
+}
+
+
+/* =================================
+   REVEAL ANIMATION
+================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+
+.invitation.show .reveal {
+    animation: revealUp 1.3s ease forwards;
+}
+
+
+.invitation.show .welcome {
+    animation-delay: .5s;
+}
+
+.invitation.show .invite {
+    animation-delay: 1s;
+}
+
+.invitation.show .names {
+    animation-delay: 1.6s;
+}
+
+.invitation.show .divider {
+    animation-delay: 2.1s;
+}
+
+.invitation.show .date {
+    animation-delay: 2.5s;
+}
+
+.invitation.show .date-text {
+    animation-delay: 2.8s;
+}
+
+.invitation.show .message {
+    animation-delay: 3.3s;
+}
+
+.invitation.show .bottom-ornament {
+    animation-delay: 3.8s;
+}
+
+
+/* =================================
+   FIREWORKS
+================================= */
+
+#fireworks {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =================================
+   MUSIC BUTTON
+================================= */
+
+.music-button {
+    position: fixed;
+
+    bottom: 25px;
+    left: 25px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--gold);
+
+    background: rgba(30,5,10,.65);
+
+    color: var(--gold);
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+
+    transition: .4s;
+}
+
+.invitation.show .music-button {
+    opacity: 1;
+}
+
+
+/* =================================
+   ANIMATIONS
+================================= */
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes heartbeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.15);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+}
+
+
+@keyframes revealUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .roman-frame {
+        inset: 12px;
+    }
+
+    .envelope {
+        width: 280px;
+        height: 185px;
+    }
+
+    .envelope-flap {
+        border-left-width: 140px;
+        border-right-width: 140px;
+        border-top-width: 95px;
+    }
+
+    .names {
+        gap: 12px;
+    }
+
+    .name {
+        font-size: 48px;
+    }
+
+    .heart {
+        font-size: 30px;
+    }
+
+    .divider span {
+        width: 55px;
+    }
+
+    .message {
+        margin-top: 25px;
+    }
+
+}
