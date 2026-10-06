@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>دعوة زفاف</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <main class="invitation">
+
+    <button id="musicButton" class="music-button">
+      🎵
+    </button>
+
+    <audio id="weddingMusic" loop>
+      <source
+        src="music.mp3"
+        type="audio/mpeg"
+      >
+    </audio>
+
+    <p class="small-title">
+      YOU ARE INVITED
+    </p>
+
+    <h1>
+      أسامة & رحيق
+    </h1>
+
+    <p class="date">
+      02 • 02 • 2027
+    </p>
+
+    <p class="message">
+      بكل حب وسعادة<br>
+      ندعوكم لمشاركتنا فرحتنا
+    </p>
+
+    <div class="countdown">
+
+      <div>
+        <span id="days">00</span>
+        <small>يوم</small>
+      </div>
+
+      <div>
+        <span id="hours">00</span>
+        <small>ساعة</small>
+      </div>
+
+      <div>
+        <span id="minutes">00</span>
+        <small>دقيقة</small>
+      </div>
+
+      <div>
+        <span id="seconds">00</span>
+        <small>ثانية</small>
+      </div>
+
+    </div>
+
+    <div class="gallery">
+
+      <img
+        src="https://images.unsplash.com/photo-1519741497674-611481863552"
+        alt="Wedding"
+      >
+
+      <img
+        src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6"
+        alt="Wedding"
+      >
+
+      <img
+        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc"
+        alt="Wedding"
+      >
+
+    </div>
+
+    <a
+      class="location-btn"
+      href="https://maps.google.com"
+      target="_blank"
+    >
+      📍 موقع الحفل
+    </a>
+
+    <a
+      class="whatsapp-btn"
+      href="https://wa.me/9647700000000?text=السلام%20عليكم،%20أرغب%20بتأكيد%20حضوري"
+      target="_blank"
+    >
+      💬 تأكيد الحضور
+    </a>
+
+  </main>
+
+  <div id="imageViewer" class="image-viewer">
+
+    <span id="closeViewer">
+      ×
+    </span>
+
+    <img id="bigImage" src="" alt="">
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
